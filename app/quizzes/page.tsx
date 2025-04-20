@@ -1,7 +1,5 @@
 import type { Metadata } from "next"
-import { Button } from "@/components/ui/button"
-import { QuizFilter } from "@/app/components/quiz-filter"
-import { QuizTabs } from "@/app/components/quiz-tabs"
+import { QuizzesClient } from "./quizzes-client"
 
 export const metadata: Metadata = {
   title: "Kuis ISO 37001",
@@ -10,7 +8,78 @@ export const metadata: Metadata = {
 
 // Data dummy untuk kuis
 const quizzes = [
-  // ... data kuis yang sudah ada ...
+  {
+    id: "1",
+    title: "Dasar-dasar ISO 37001",
+    description: "Kuis tentang konsep dasar dan prinsip-prinsip ISO 37001",
+    category: "Pengetahuan Dasar",
+    questions: 10,
+    timeLimit: 15,
+    difficulty: "Pemula",
+    completions: 245,
+    avgScore: 82,
+    featured: true,
+  },
+  {
+    id: "2",
+    title: "Implementasi Sistem Manajemen Anti Penyuapan",
+    description: "Kuis tentang langkah-langkah implementasi sistem manajemen anti penyuapan",
+    category: "Implementasi",
+    questions: 15,
+    timeLimit: 20,
+    difficulty: "Menengah",
+    completions: 178,
+    avgScore: 75,
+    featured: true,
+  },
+  {
+    id: "3",
+    title: "Audit dan Sertifikasi ISO 37001",
+    description: "Kuis tentang proses audit dan sertifikasi ISO 37001",
+    category: "Audit",
+    questions: 12,
+    timeLimit: 18,
+    difficulty: "Lanjutan",
+    completions: 132,
+    avgScore: 68,
+    featured: false,
+  },
+  {
+    id: "4",
+    title: "Penilaian Risiko Penyuapan",
+    description: "Kuis tentang metode penilaian risiko penyuapan dalam organisasi",
+    category: "Manajemen Risiko",
+    questions: 8,
+    timeLimit: 12,
+    difficulty: "Menengah",
+    completions: 156,
+    avgScore: 79,
+    featured: true,
+  },
+  {
+    id: "5",
+    title: "Kebijakan Anti Penyuapan",
+    description: "Kuis tentang pengembangan dan implementasi kebijakan anti penyuapan",
+    category: "Kebijakan",
+    questions: 10,
+    timeLimit: 15,
+    difficulty: "Pemula",
+    completions: 198,
+    avgScore: 85,
+    featured: false,
+  },
+  {
+    id: "6",
+    title: "Uji Kelayakan dalam ISO 37001",
+    description: "Kuis tentang proses uji kelayakan terhadap mitra bisnis dan personel",
+    category: "Uji Kelayakan",
+    questions: 12,
+    timeLimit: 18,
+    difficulty: "Lanjutan",
+    completions: 112,
+    avgScore: 72,
+    featured: false,
+  },
 ]
 
 // Filter kuis berdasarkan featured
@@ -33,35 +102,12 @@ const difficulties = ["Semua", "Pemula", "Menengah", "Lanjutan"]
 
 export default function QuizzesPage() {
   return (
-    <div className="container mx-auto py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Kuis ISO 37001</h1>
-          <p className="text-muted-foreground mt-1">
-            Uji dan tingkatkan pemahaman Anda tentang ISO 37001 melalui kuis interaktif
-          </p>
-        </div>
-        <div className="mt-4 md:mt-0">
-          <Button>Riwayat Kuis Saya</Button>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <div className="lg:col-span-1">
-          <QuizFilter 
-            categories={categories} 
-            difficulties={difficulties} 
-          />
-        </div>
-
-        <div className="lg:col-span-3">
-          <QuizTabs 
-            featuredQuizzes={featuredQuizzes}
-            recentQuizzes={recentQuizzes}
-            allQuizzes={quizzes}
-          />
-        </div>
-      </div>
-    </div>
+    <QuizzesClient 
+      quizzes={quizzes}
+      featuredQuizzes={featuredQuizzes}
+      recentQuizzes={recentQuizzes}
+      categories={categories}
+      difficulties={difficulties}
+    />
   )
 }
