@@ -1,4 +1,4 @@
-export default function Page() {
+function Page() {
   return (
     <div>
       <h1>Kuis ISO 37001</h1>
@@ -6,3 +6,5 @@ export default function Page() {
     </div>
   );
 }
+
+export default Page;
