@@ -1,69 +1,66 @@
-"use client"
+import type { Metadata } from "next"
+import { Button } from "@/components/ui/button"
+import { QuizFilter } from "@/app/components/quiz-filter"
+import { QuizTabs } from "@/app/components/quiz-tabs"
 
-// Tambahkan directive "use client" di bagian atas file yang berisi filter
-// untuk memastikan interaktivitas berfungsi
-import Link from "next/link"
-import { ArrowRight } from 'lucide-react'
+export const metadata: Metadata = {
+  title: "Kuis ISO 37001",
+  description: "Uji pemahaman Anda tentang ISO 37001 dengan kuis interaktif",
+}
 
-export default function HomePage() {
+// Data dummy untuk kuis
+const quizzes = [
+  // ... data kuis yang sudah ada ...
+]
+
+// Filter kuis berdasarkan featured
+const featuredQuizzes = quizzes.filter((quiz) => quiz.featured)
+const recentQuizzes = [...quizzes].sort((a, b) => b.completions - a.completions).slice(0, 4)
+
+// Kategori kuis
+const categories = [
+  "Semua",
+  "Pengetahuan Dasar",
+  "Implementasi",
+  "Audit",
+  "Manajemen Risiko",
+  "Kebijakan",
+  "Uji Kelayakan",
+]
+
+// Tingkat kesulitan
+const difficulties = ["Semua", "Pemula", "Menengah", "Lanjutan"]
+
+export default function QuizzesPage() {
   return (
     <div className="container mx-auto py-8">
-      <div className="flex flex-col items-center text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-tight mb-4">Pelatihan ISO 37001</h1>
-        <p className="text-xl text-muted-foreground max-w-2xl">
-          Platform pelatihan komprehensif untuk memahami dan mengimplementasikan Sistem Manajemen Anti Penyuapan
-          berdasarkan ISO 37001
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        {/* Card 1 */}
-        <div className="border rounded-lg overflow-hidden shadow-sm">
-          <div className="p-6">
-            <h2 className="text-xl font-semibold mb-2">Studi Kasus</h2>
-            <p className="text-gray-600 mb-4">Pelajari dari contoh implementasi nyata</p>
-            <p className="mb-4">
-              Eksplorasi studi kasus dari berbagai organisasi yang telah berhasil mengimplementasikan ISO 37001.
-            </p>
-            <Link href="/case-studies" className="text-blue-600 hover:underline flex items-center">
-              Lihat Studi Kasus <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </div>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Kuis ISO 37001</h1>
+          <p className="text-muted-foreground mt-1">
+            Uji dan tingkatkan pemahaman Anda tentang ISO 37001 melalui kuis interaktif
+          </p>
         </div>
-
-        {/* Card 2 */}
-        <div className="border rounded-lg overflow-hidden shadow-sm">
-          <div className="p-6">
-            <h2 className="text-xl font-semibold mb-2">Dokumen & Template</h2>
-            <p className="text-gray-600 mb-4">Akses dokumen dan template penting</p>
-            <p className="mb-4">
-              Dapatkan akses ke berbagai dokumen panduan, template, dan contoh kebijakan untuk implementasi ISO 37001.
-            </p>
-            <Link href="/documents" className="text-blue-600 hover:underline flex items-center">
-              Lihat Dokumen <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-
-        {/* Card 3 */}
-        <div className="border rounded-lg overflow-hidden shadow-sm">
-          <div className="p-6">
-            <h2 className="text-xl font-semibold mb-2">Kuis Interaktif</h2>
-            <p className="text-gray-600 mb-4">Uji pemahaman Anda</p>
-            <p className="mb-4">
-              Tingkatkan pemahaman Anda tentang ISO 37001 melalui serangkaian kuis interaktif dengan penilaian otomatis.
-            </p>
-            <Link href="/quizzes" className="text-blue-600 hover:underline flex items-center">
-              Mulai Kuis <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </div>
+        <div className="mt-4 md:mt-0">
+          <Button>Riwayat Kuis Saya</Button>
         </div>
       </div>
 
-      <div className="text-center">
-        <Link href="/dashboard" className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 inline-flex items-center">
-          Masuk ke Dashboard <ArrowRight className="ml-2 h-4 w-4" />
-        </Link>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="lg:col-span-1">
+          <QuizFilter 
+            categories={categories} 
+            difficulties={difficulties} 
+          />
+        </div>
+
+        <div className="lg:col-span-3">
+          <QuizTabs 
+            featuredQuizzes={featuredQuizzes}
+            recentQuizzes={recentQuizzes}
+            allQuizzes={quizzes}
+          />
+        </div>
       </div>
     </div>
   )
