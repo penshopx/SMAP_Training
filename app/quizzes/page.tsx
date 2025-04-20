@@ -100,7 +100,7 @@ const categories = [
 // Tingkat kesulitan
 const difficulties = ["Semua", "Pemula", "Menengah", "Lanjutan"]
 
-export default function QuizzesPage() {
+export default function Page() {
   return (
     <QuizzesClient 
       quizzes={quizzes}
